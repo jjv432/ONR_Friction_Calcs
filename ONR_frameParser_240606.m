@@ -35,8 +35,8 @@ function [Frames, doubleTrials] = ONR_frameParser_240606(FileName)
     fig = figure;
         plot(Slider.Time, Slider.Y)
         title('Sliding Plot')
-        xlabel('x')
-        ylabel('y')
+        xlabel('Time')
+        ylabel('Y')
     
     datacursormode on
     dcm_obj = datacursormode(fig);
