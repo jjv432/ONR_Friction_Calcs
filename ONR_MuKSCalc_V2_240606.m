@@ -26,6 +26,9 @@ SliderRaw = readmatrix(FileName, 'Range', 'A8');
 %% Separating Position 1 (Beginning) and Position 2 (End)
 
 %Columns 4 and 5 correspond to Y and Z values, respectively
+Pos2X = SliderRaw(End, 3);
+Pos1X = SliderRaw(Beginning, 3);
+
 Pos2Y = SliderRaw(End, 4);
 Pos1Y = SliderRaw(Beginning, 4);
 
@@ -52,7 +55,7 @@ end
 
 %Calculating r, the linear distance between beginning and end positions of
 %the slider.  This is useful for Work non conservative as W_nc = F*d
-r = sqrt((Pos2Y - Pos1Y)^2 + (Pos2Z - Pos1Z)^2);
+r = sqrt((Pos2X - Pos1X)^2 +(Pos2Y - Pos1Y)^2 + (Pos2Z - Pos1Z)^2);
 
 %% Calculating the approximate linear velocities at each pos1 and pos2
 
@@ -96,11 +99,26 @@ Y_2 = SliderRaw(End+1, 4);
 
 Vy_2 = (Y_not_2-Y_2)/(t_not_2-t_2);
 
+%Finding Vx at Pos1
+
+X_not_1 = SliderRaw(Beginning, 3);
+X_1 = SliderRaw(Beginning+1, 3);
+
+Vx_1 = (X_not_1-X_1)/(t_not_1-t_1);
+
+
+%Finding Vx at Pos2
+
+X_not_2 = SliderRaw(End, 3);
+X_2 = SliderRaw(End+1, 3);
+
+Vx_2 = (X_not_2-X_2)/(t_not_2-t_2);
+
 
 %Finding Vtot at both locations (beginning and end)
 
-V_tot_not = sqrt(Vy_1^2 + Vz_1^2);
-V_tot = sqrt(Vy_2^2 + Vz_2^2);
+V_tot_not = sqrt(Vx_1^2 + Vy_1^2 + Vz_1^2);
+V_tot = sqrt(Vx_2^2 + Vy_2^2 + Vz_2^2);
 
 %% Mu Calculation
 g = 9.81;
